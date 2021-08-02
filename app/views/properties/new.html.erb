@@ -1,0 +1,155 @@
+<html>
+<head>
+
+<style >
+		body{
+	margin:0;
+	color:#6a6f8c;
+	background:#c8c8c8;
+	font:600 16px/18px 'Open Sans',sans-serif;
+  background-color: blue;
+
+  
+}
+*,:after,:before{box-sizing:border-box}
+.clearfix:after,.clearfix:before{content:'';display:table}
+.clearfix:after{clear:both;display:block}
+a{color:inherit;text-decoration:none}
+
+.login-wrap{
+	width:100%;
+	margin:auto;
+	max-width:525px;
+	min-height:670px;
+	position:relative;
+	 background-color: darkblue; 
+   border-radius: 40px;
+	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
+
+
+.login-html .tab,
+.login-form .group .label,
+.login-form .group .button{
+	text-transform:uppercase;
+}
+
+
+.login-form{
+	min-height:345px;
+	position:relative;
+	perspective:1000px;
+	transform-style:preserve-3d;
+}
+.login-form .group{
+	margin-bottom:15px;
+}
+.group.label,
+.group.button,
+.group.input,
+.input{
+	width:100%;
+	color:#fff;
+	display:block;
+  	border-radius:25px;
+}
+.login-form .group .input,
+.login-form .group .button{
+	border:none;
+	padding:15px 20px;
+	border-radius:25px;
+	background:rgba(255,255,255,.1);
+}
+
+.login-form .group .label{
+	color:#aaa;
+	font-size:12px;
+}
+.login-form .group .button{
+	background:#1161ee;
+}
+
+.button{
+ background:#1161ee; 
+ border:none;
+	padding:15px 20px;
+	border-radius:25px;
+	background: blue;
+  color:black;
+  
+}
+.hr{
+	height:2px;
+	margin:60px 0 50px 0;
+	background:rgba(255,255,255,.2);
+}
+.foot-lnk{
+	text-align:center;
+}
+.right{
+   margin-left: 350px;
+   color:black;
+}
+.center{
+  text-align:center;
+}
+.btn {
+  border: none;
+  background-color: blue;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  color: black;
+  display: inline-block;
+}
+.btn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+	</style>
+
+</head>
+<body>
+<div class="login-wrap">
+
+	<div class="login-form">
+	<div class="sign-in-htm">
+ <h1> Properties Page</h1>
+
+ 
+<%= form_for :@properties, url:'/properties'   do |f| %>
+<div class="group">
+<p>
+    <%= f.label :name ,class:"label"%><br>
+    <%= f.text_field :name, class:"input" %>
+    </p>
+    
+  <p>
+    <%= f.label :address ,class:"label"%><br>
+    <%= f.text_field :address , class:"input"%>
+  </p>
+     
+  <p>
+    <%= f.label :city,class:"label"%><br>
+    <%= f.text_field :city, class:"input"%>
+  </p>
+     
+  <p>
+    <%= f.label :Number_of_bedrooms,class:"label"%><br>
+    <%= f.text_field :bedrooms, class:"input"%>
+  </p>
+  <p>
+    <%= f.label :description, class:"label"%><br>
+    <%= f.text_area :description, class:"input" %>
+  </p>
+  <p>
+  <%= f.label :rent,class:"label"%>
+  <%= f.number_field :rent, class:"input"%>
+ 
+  <br>
+    <%= f.submit  "Add properties" ,class:"btn"%>
+  
+
+<% end %>
+ 
+ 
