@@ -133,53 +133,70 @@ width:100%;
 .align{
 	margin-right: 1000px;
 }
-.btn {
+.btn1 {
   border: none;
   background-color: orange;
   padding: 14px 28px;
   border-radius: 12px;
   font-size: 16px;
+  margin-left: ;
   cursor: pointer;
   color: black;
   display: inline-block;
 }
-.btn1 {
+.btnr {
   border: none;
-  background-color: blue;
-  <% #padding: 14px 28px; %>
-  border-radius: 22px;
-  font-size: 14px;
+  background-color: orange;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 16px;
+  margin-left: 70%;
   cursor: pointer;
-  color: white;
+  color: black;
   display: inline-block;
 }
-.btnr {margin-left:175px;
+.btns{
+  border: none;
+  background-color: blue;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 13px;
+color:white;
+  cursor: pointer;
+  
+  display: inline-block;
+}
 
-  border: none;
-  background-color: blue;
-  margin-left:260px;
-  border-radius: 22px;
-  font-size: 14px;
-  cursor: pointer;
-  color: white;
-  display: inline-block;
-}
-.btn:hover, .btnr:hover, .btn1:hover {
+
+.btn1:hover, .btnr:hover, .btn1:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 </style>
-Welcome <%=@renter.name%>
-<h1 text-align:center ,color:darkblue> Your Properties</h1>
+
+
+<h1 text-align:center ,color:darkblue> Welcome <%=@renter.name%></h1>
 
 
 
 	<div class="login-form">
 	<div class="sign-in-htm">
 	
-<button class="btn">
-<%= link_to "logout", destroy_renter_session_path, method: :delete %>
+
+<button class="btn1">
+<%= link_to "RentedList", rentedlistp_path %>
+</button>
+<button class="btn1">
+<%= link_to "Wishlist",wishlistp_path, style: 'color: #FFFFFF' %>
 </button>
 
+<button class="btnr">
+<%= link_to "logout", destroy_renter_session_path, method: :delete %>
+</button>
+<br>
+<% flash.each do |name, msg| -%>
+  <%= content_tag :div, msg, class: name %>
+ <% end -%>
+ <br>
 <% @propertylist.each do |prop|%>
 <div class="clearfix">
 <div class="box" style="background-color: ">
@@ -192,8 +209,15 @@ Welcome <%=@renter.name%>
 <span class="border"><%= prop.city%></span><br>
 <span >Number of bedrooms</span>
 <span class="border"><%= prop.bedrooms%></span><br>
-<span >About Property</span>
-<span class="border"><%= prop.description%></span>
+<button class="btns">
+<%= link_to "Expore this property", viewproperty_path(prop)%>
+</button>
+<%#<span >About Property</span>
+<span class="border"><%= prop.description%>
+<%#</span>
 </div>
-<div>
+<%#(0...prop.images.count).each do |img| %>
+<%#= image_tag(prop.images[img])%>
+<%#end%>
+</div>
 <% end %>

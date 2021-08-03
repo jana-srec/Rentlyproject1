@@ -1,4 +1,4 @@
 class Wishlist < ApplicationRecord
-    belongs_to :properties
-    belongs_to :renters
+    belongs_to :properties, optional: true
+    belongs_to :renters, optional: true
 end

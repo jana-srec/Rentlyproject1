@@ -1,0 +1,45 @@
+<<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+
+
+</style>
+Welcome <%=@renter.name%>
+<h1 text-align:center ,color:darkblue> Your Properties</h1>
+
+
+
+	
+<button class="btn">
+<%= link_to "logout", destroy_renter_session_path, method: :delete %>
+</button>
+<% if @property.flag == 1%>
+<%= link_to "Rent This", addrentedprop_path%>
+<% else%>
+Sorry Property has been already booked
+<%= link_to "Add to wishlist", addwishlist_path%>
+<% end%>
+
+<div class="box" style="background-color: ">
+<h2 class="center"><%= @property.name%><br></h2>
+<span >Property Location :</span>
+<span class="border"><%= @property.address %></span><br>
+<span>Property rent</span>
+<span class="border"><%= @property.rent%> Dollars per day</span><br>
+<span >Property City</span>
+<span class="border"><%= @property.city%></span><br>
+<span >Number of bedrooms</span>
+<span class="border"><%= @property.bedrooms%></span><br>
+<span >About Property</span>
+<span class="border"><%= @property.description%>
+</span>
+
+
+<%(0...@property.images.count).each do |img| %>
+
+    <%= image_tag(@property.thumbnail(img)) %>
+ 
+
+<%end%>
