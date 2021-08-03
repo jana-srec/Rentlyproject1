@@ -134,9 +134,11 @@ ActiveRecord::Schema.define(version: 2021_08_02_060615) do
     t.string "rating"
     t.string "reviews"
     t.bigint "property_id"
+    t.bigint "renter_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["property_id"], name: "index_reviews_on_property_id"
+    t.index ["renter_id"], name: "index_reviews_on_renter_id"
   end
 
   create_table "wishlists", force: :cascade do |t|

@@ -188,9 +188,11 @@ color:white;
 <% puts "noproperties"%>
 <%end%>
 <% @properties.each do |prop|%>
-<% prop = Property.find(prop.property_id)%>
+
 <div class="clearfix">
 <div class="box" style="background-color: ">
+<div class="btns"><%=link_to "Remove", remove_path(prop)%></div>
+<% prop = Property.find(prop.property_id)%>
 <h2 class="center"><%= prop.name%><br></h2>
 <span >Property Location :</span>
 <span class="border"><%= prop.address %></span><br>

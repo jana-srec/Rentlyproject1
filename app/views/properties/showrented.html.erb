@@ -184,10 +184,14 @@ color:white;
 </button>
 <br>
 <h3 text-align:center>your rented lists</h3>
+
 <% @properties.each do |prop|%>
-<% prop = Property.find(prop.property_id)%>
+
 <div class="clearfix">
 <div class="box" style="background-color: ">
+<div class="btn">
+<%=link_to "unrent", unrent_path(prop)%></div>
+<% prop = Property.find(prop.property_id)%>
 <h2 class="center"><%= prop.name%><br></h2>
 <span >Property Location :</span>
 <span class="border"><%= prop.address %></span><br>

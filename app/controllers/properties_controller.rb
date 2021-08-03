@@ -9,6 +9,10 @@ class PropertiesController < ApplicationController
     def show
       @property=Property.find(params[:id])
       @renter =current_renter
+      @review=Review.new()
+      @review.property_id=@property.id
+      @check= Rentedlist.where(property_id: @property.id).take
+      @reviewslist=Review.where(property_id: @property.id).all
     end
 
     def addrented
@@ -18,6 +22,9 @@ class PropertiesController < ApplicationController
       @adder.renter_id=@renter.id
       @adder.property_id=@propertylist.id
       if @adder.save
+        #flag updation for rented or not
+        @property=Property.find(@propertylist.id)
+        @property.update(flag: 1)
         redirect_to viewprop_path(@propertylist), notice: "an email has been sent to the respective owener , he will ge back you in short"
       end
     end
@@ -27,8 +34,13 @@ class PropertiesController < ApplicationController
       @renter=current_renter
       @adder.renter_id=@renter.id
       @adder.property_id=@propertylist.id
-     if @adder.save
-      redirect_to viewprop_path(@propertylist), notice: "Added to Ur Wishlist"
+      if @adder.valid?
+        if @adder.save
+        redirect_to viewprop_path(@propertylist), notice: "Added to Ur Wishlist"
+        end
+      else
+        redirect_to viewprop_path(@propertylist), notice: "You had already added it to wishlist"
+
     end
   end
   def create
@@ -76,6 +88,22 @@ class PropertiesController < ApplicationController
       def showwish
         @renter=current_renter
         @properties=Wishlist.where(renter_id: @renter.id)
+      end
+
+      def remove
+        @wish=Wishlist.find(params[:id])
+        @wish.destroy
+        redirect_to wishlistp_path,notice: "removed successfully"
+      end
+      def unrent
+        @unrent=Rentedlist.find(params[:id])
+        
+        #flag updation for rented or not
+        @property=Property.find(@unrent.property_id)
+        @property.update(flag: 0)
+        @unrent.destroy
+
+        redirect_to rentedlistp_path,notice: "Unrented"
       end
       private
     def property_params

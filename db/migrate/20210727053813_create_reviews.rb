@@ -4,7 +4,7 @@ class CreateReviews < ActiveRecord::Migration[6.1]
       t.string :rating
       t.string :reviews
       t.belongs_to :property
-
+      t.belongs_to :renter
       t.timestamps
     end
   end

@@ -15,12 +15,20 @@ Welcome <%=@renter.name%>
 <button class="btn">
 <%= link_to "logout", destroy_renter_session_path, method: :delete %>
 </button>
-<% if @property.flag == 1%>
-<%= link_to "Rent This", addrentedprop_path%>
+<% if @property.flag == 0%>
+<%= link_to "Rent This", addrentedprop_path(@property)%>
+<%ratingid=0%>
 <% else%>
-Sorry Property has been already booked
-<%= link_to "Add to wishlist", addwishlist_path%>
-<% end%>
+<%if @check.renter_id == current_renter.id %>
+Property has been already booked by you!
+<% ratingid =1%>
+<%else%>
+Property has been already booked by someone
+<%ratingid=0%>
+<%= link_to "Add to wishlist", addwishlist_path(@property)%>
+<%end%>
+<%end%>
+
 
 <div class="box" style="background-color: ">
 <h2 class="center"><%= @property.name%><br></h2>
@@ -42,4 +50,37 @@ Sorry Property has been already booked
     <%= image_tag(@property.thumbnail(img)) %>
  
 
+<%end%>
+<br>
+<%if ratingid == 1%>
+provide some ratings and reviews 
+<%= form_for :@reviews, url:'/reviews'   do |f| %>
+<div class="group">
+<p>
+    <%= f.label :rating ,class:"label"%><br>
+    <%= f.text_field :rating, class:"input" %>
+    </p>
+    
+    <%= f.label :reviews, class:"label"%><br>
+    <%= f.text_area :reviews, class:"input" %>
+  </p>
+<%= f.hidden_field :property_id, value: @property.id %>
+  <br>
+    <%= f.submit  "Add Reviews" ,class:"btn"%>
+</div>
+<%end%>
+<%end%>
+<% @reviewslist.each do|review|%>
+<div>
+<% @rentername=Renter.find(review.renter_id)%>
+Name:
+<%=@renter.name%>
+<br>
+Reviews
+<%=review.reviews%>
+<br>
+Ratings:
+<%= review.rating %>
+<hr>
+</div>
 <%end%>

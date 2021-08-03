@@ -193,9 +193,8 @@ color:white;
 <%= link_to "logout", destroy_renter_session_path, method: :delete %>
 </button>
 <br>
-<% flash.each do |name, msg| -%>
-  <%= content_tag :div, msg, class: name %>
- <% end -%>
+
+ <br>
  <br>
 <% @propertylist.each do |prop|%>
 <div class="clearfix">
