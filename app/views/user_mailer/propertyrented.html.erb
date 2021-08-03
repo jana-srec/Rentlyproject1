@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Hi, <%= @agent.name %></h1>
+    <p>
+      Your property <% @property.name%> has be approached by <% @renter.name%>, his details are given below, if u wish you can contact and make further move
+      Renter Name: <%= @renter.name %>.
+      <br/>
+      contact : <%= @renter.contact%>
+      email: <%=@renter.email%>
+    </p>
+    
+    <p>Thanks for Using our website, have a great day</p>
+  </body>
+</html>
