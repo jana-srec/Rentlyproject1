@@ -128,12 +128,12 @@ class PropertiesController < ApplicationController
         @property.update(flag: 0)
         @check=Wishlist.where(property_id: @property.id).all
         @check.each do |obj|
-          @renter=Renter.where(id: @check.renter_id).take
-          puts "#{renter.name}"
-          UserMailer.propertyavailabe(@renter,@agent,@property).deliver_now
+          @renter=Renter.find(obj.renter_id)
+          @agent=Agent.find(@property.agent_id)
+           UserMailer.propertyavailabe(@renter,@agent,@property).deliver_now
         end
         @unrent.destroy
-        redirect_to rentedlistp_path,notice: "Unrented"
+        redirect_to rentedlistp_path,notice: " The property has been unrented"
       end
 
 

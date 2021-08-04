@@ -1,22 +1,79 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <style>
+<style>
+body {margin: 0;}
+.label,.input{
+	
+	color:#fff;
+	display:block;
+  	border-radius:25px;
+		}
+	.input{
+		border;
+		padding:15px 20px;
+    width:20%;
+		border-radius:10px;
+		background:#000033;
+		}
 
+.label{
+	color:brown;
+	font-size:12px;
+	}
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
 
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+
+ul.topnav li a.active {background-color: #04AA6D;}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px) {
+  ul.topnav li.right, 
+  ul.topnav li {float: none;}
+}
+.center{
+  text-align:center;
+}
+.btn1{
+  color:white;
+  background-color: green;
+  border-radius:23px;
+  padding:5px;
+  font-size:10px;
+}
 
 </style>
+<ul class="topnav">
+  <li class="active"><%=link_to "back",viewprop_path%></li>
+   <li class="right"><%= link_to "logout", destroy_renter_session_path, method: :delete %></li>
+</ul>
+<div class="center">
 Welcome <%=@renter.name%>
-<h1 text-align:center ,color:darkblue> Your Properties</h1>
+</div>
 
-<button class="btn">
-<%=link_to "back",viewprop_path%>
-	</button>
-<button class="btn">
-<%= link_to "logout", destroy_renter_session_path, method: :delete %>
-</button>
 <% if @property.flag == 0%>
+<button class="btn1">
 <%= link_to "Rent This", addrentedprop_path(@property)%>
+</button>
 <%ratingid=0%>
 <% else%>
 <%if @check.renter_id == current_renter.id %>
@@ -29,7 +86,7 @@ Property has been already booked by someone
 <%end%>
 <%end%>
 
-
+<div>
 <div class="box" style="background-color: ">
 <h2 class="center"><%= @property.name%><br></h2>
 <span >Property Location :</span>
@@ -43,11 +100,14 @@ Property has been already booked by someone
 <span >About Property</span>
 <span class="border"><%= @property.description%>
 </span>
-
+</div>
+<br>
+Property Images
+<br><br>
 
 <%(0...@property.images.count).each do |img| %>
 
-    <%= image_tag(@property.thumbnail(img)) %>
+   <a href=""> <%= image_tag(@property.thumbnail(img)) %></a>
  
 
 <%end%>
@@ -57,8 +117,8 @@ provide some ratings and reviews
 <%= form_for :@reviews, url:'/reviews'   do |f| %>
 <div class="group">
 <p>
-    <%= f.label :rating ,class:"label"%><br>
-    <%= f.text_field :rating, class:"input" %>
+    <%= f.label :rating,class:"label"%><br>
+    <%= f.number_field :rating, class:"input"%>
     </p>
     
     <%= f.label :reviews, class:"label"%><br>

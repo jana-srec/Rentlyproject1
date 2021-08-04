@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
   #sending mail   
-  default :from => "janarthanan.s@rently.com"
+  default :from => "onlineeventparticipation@gmail.com"
   #for Agent
     def propertyrented(renter,agent,property)
         @renter = renter
@@ -15,6 +15,7 @@ class UserMailer < ApplicationMailer
         @renter=renter
         @agent=agent
         @property=property
+        puts "#{@renter.name}"
         mail(:to => @renter.email, :subject => "Property is availabe")
       end
 end

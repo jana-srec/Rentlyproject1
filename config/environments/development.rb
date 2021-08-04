@@ -14,13 +14,13 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: '127.0.0.1', port: 3000 }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name:      'janarthanan.s@rently.com',
-    password:       'J@1234!@#$',
+    user_name:      'onlineeventparticipation@gmail.com',
+    password:       'J@1270725',
     domain:         'gmail.com',
     address:       'smtp.gmail.com',
     port:          '587',
-    authentication: :plain,
-    enable_starttls_auto: true}
+    authentication: :plain}
+    #enable_starttls_auto: true}
   # Show full error reports.
   config.consider_all_requests_local = true
 

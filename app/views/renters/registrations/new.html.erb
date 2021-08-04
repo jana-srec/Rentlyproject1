@@ -43,7 +43,7 @@ border: none;
 
 	</style>
 </head>
-<body>
+<body >
 
 <h1 text-align:center ,color:darkblue> signup</h1>
 <%= render "renters/shared/error_messages", resource: resource %>
@@ -91,22 +91,23 @@ border: none;
     		
    			 <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
    			 </div>
-   		</div>
+   		
 
 				<div class="hr"></div>
 				<div class="foot-lnk">
-					<label for="tab-1">Already have an account?</a>
+					<label for="tab-1">Already have an account?</label>
 				</div>
-			</div>
+			
 		 
-		<div class="actions">
-    <div class="group">
-    	<%= f.submit "Sign up", class: "btnr" %>
+		
+	<div class="action">
+    	<%= f.submit "Signup", class: "btnr",data: { turbolinks: false } %>
+		
 <span class="right"> 
     <%= link_to "Login", new_renter_session_path, class: "btnr"%></span>
-    </div>
+   </div>
 		<% end %>
-		</div>
+		</div> </div></div>
 
 <div class="center">
 <%= render "renters/shared/links" %>
