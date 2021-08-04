@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
         @agent= agent
         @property = property
        
-        mail(:to => @agent.email, :subject => "Approachment of your property")
+        mail(:to => @renter.email, :subject => "Approachment has been accepted")
       end
 
   #for Renters

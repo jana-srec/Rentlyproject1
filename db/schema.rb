@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_02_060615) do
+ActiveRecord::Schema.define(version: 2021_08_04_113810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,16 @@ ActiveRecord::Schema.define(version: 2021_08_02_060615) do
     t.index ["email"], name: "index_agents_on_email", unique: true
     t.index ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_agents_on_unlock_token", unique: true
+  end
+
+  create_table "approaches", force: :cascade do |t|
+    t.bigint "properties_id", null: false
+    t.bigint "renters_id", null: false
+    t.integer "approachflag"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["properties_id"], name: "index_approaches_on_properties_id"
+    t.index ["renters_id"], name: "index_approaches_on_renters_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -152,4 +162,6 @@ ActiveRecord::Schema.define(version: 2021_08_02_060615) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "approaches", "properties", column: "properties_id"
+  add_foreign_key "approaches", "renters", column: "renters_id"
 end

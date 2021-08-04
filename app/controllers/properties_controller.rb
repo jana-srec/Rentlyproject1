@@ -11,25 +11,46 @@ class PropertiesController < ApplicationController
       @renter =current_renter
       @review=Review.new()
       @review.property_id=@property.id
+      # to check whether the property is rented or not in the view side
       @check= Rentedlist.where(property_id: @property.id).take
       @reviewslist=Review.where(property_id: @property.id).all
+      #for approachlist to check if it is already approached by the current renter or not
+      @approachflag=0
+      @appr=Approach.where(renters_id:@renter.id).all
+      #loop through the renters to find whether the propertyis already approached or not
+      @appr.each do |prp|
+          if prp.properties_id == @property.id
+          @approachflag=1
+          puts "#{@approachflag}"
+          break
+        end
+        #ending the loop
+      end
     end
 
 
     # Add a particular property in rented list and sending email to Agent
     def addrented
       @adder=Rentedlist.new()
-      @propertylist=Property.find(params[:id])
-      @renter=current_renter
-      @adder.renter_id=@renter.id
-      @adder.property_id=@propertylist.id
+      @approach=Approach.find(params[:id])
+      @adder.renter_id=@approach.renters_id
+      @adder.property_id=@approach.properties_id
+      @property=Property.find(@approach.properties_id)
+      @currentflag=0;
       if @adder.save
+        # getting agent, property, renters object for sending email
+        @agent=current_agent
+        @property=Property.find(@approach.properties_id)
+        @renter= Renter.find(@approach.renters_id)
         #flag updation for rented or not
-        @property=Property.find(@propertylist.id)
-        @agent= Agent.find(@property.agent_id)
         @property.update(flag: 1)
+        #sending email to renters that Agent has accepted his approach
         UserMailer.propertyrented(@renter,@agent,@property).deliver
-         redirect_to viewprop_path(@propertylist), notice: "an email has been sent to the respective owener , he will ge back you in short"
+        #current flag to display the icon of accept or not
+        
+        redirect_to viewapproach_path(@property), notice: "An email has been sent to the respective Renter regarding your acceptance , he will ge back you in short"
+      else
+      redirect_to viewapproach_path(@property), notice: "Sorry you have already accepted this renter"
       end
     end
 
@@ -126,6 +147,8 @@ class PropertiesController < ApplicationController
         #flag updation for rented or not
         @property=Property.find(@unrent.property_id)
         @property.update(flag: 0)
+        @removwish=Approach.where(renters_id: current_renter.id, properties_id:@property.id).take
+        @removwish.destroy
         @check=Wishlist.where(property_id: @property.id).all
         @check.each do |obj|
           @renter=Renter.find(obj.renter_id)

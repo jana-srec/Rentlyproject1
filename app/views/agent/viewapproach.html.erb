@@ -1,0 +1,8 @@
+<%@approachlist.each do |approach|%>
+<% @rentername=Renter.find(approach.renters_id)%>
+<%= @rentername.name%>
+<%=@rentername.email%>
+<%=@rentername.contact%>
+
+<%=link_to "Accept",addrentedprop_path(approach)%>
+<%end%>

@@ -4,17 +4,16 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Hi, <%= @renter.name %></h1>
+    <h1>Hi <%= @renter.name %>,</h1>
     <p>
       The property <% @property.name%> you added to your wishlist is now available
        Property details are given below, if u wish you can contact and make further move
-      propertyname: <%=@property.name%>%
-      Agent Name: <%= @agent.name %>.
-      <br/>
-      contact : <%= @agent.contact%>
-      email: <%=@agent.email%>
+<br>  propertyname: <%=@property.name%>
+<br>    Agent Name: <%= @agent.name %>.
+<br>      contact : <%= @agent.contact%>
+<br>     email: <%=@agent.email%>
     </p>
-    
+ <br>   
     <p>Thanks for Using our website, have a great day</p>
   </body>
 </html>

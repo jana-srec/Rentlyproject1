@@ -1,5 +1,6 @@
 class Property < ApplicationRecord
-    has_many :reviews
+    has_many :reviews, dependent: :destroy
+    has_many :approaches, dependent: :destroy
     has_many_attached :images
     validate :image_type
 def thumbnail input

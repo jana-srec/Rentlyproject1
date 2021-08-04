@@ -32,7 +32,24 @@ class AgentController < ApplicationController
     @agent = current_agent 
   	@properties = @agent.properties 
     end
-
+    def viewapproach
+        @approach=Approach.new()
+        @property=Property.find(params[:id])
+        @approachlist=Approach.where(properties_id:@property.id)
+    end
+    def addapproach
+        @approach=Approach.new()
+        @property=Property.find(params[:id])
+        @renter=current_renter
+        @approach.properties_id=@property.id
+        @approach.renters_id=@renter.id
+        @approach.approachflag = 1
+        if @approach.save
+        redirect_to viewproperty_path(@property)
+        else
+        redirect_to viewproperty_path(@property), notice: "Unable to add approaches soryy!!try after some months"
+        end
+    end
    
     private 
   def agent_params 
