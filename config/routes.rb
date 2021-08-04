@@ -13,8 +13,8 @@ get '/viewprop', action: :show, controller: 'renter'
 get '/addapproach/:id', action: :addapproach, controller: 'agent', as: :addapproach
 get '/addrentedprop/:id', action: :addrented, controller: 'properties', as: :addrentedprop
 get '/addwishlist/:id', action: :addwish, controller: 'properties', as: :addwishlist
-get 'rentedlistp', action: :showrented, controller: 'properties', as: :rentedlistp
-get '/wishlistp', action: :showwish, controller: 'properties', as: :wishlistp
+get '/rentedlistpath', action: :showrented, controller: 'properties', as: :rentedlistp
+get '/wishlistpath', action: :showwish, controller: 'properties', as: :wishlistp
 post '/reviews', action: :create, controller: 'review', as: :reviews
 get '/viewapproachedlist/:id', action: :viewapproach, controller: 'agent',as: :viewapproach
 resources :properties

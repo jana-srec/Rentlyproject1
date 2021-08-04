@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	
@@ -8,7 +8,7 @@
 	color:#6a6f8c;
 	background:#c8c8c8;
 	font:600 16px/18px 'Open Sans',sans-serif;
-  background-color: darkorange;
+  background-color:;
 
   
 }
@@ -24,17 +24,20 @@
   box-sizing: border-box;
 }
 
+
 .box {
   float: left;
-  width: 32.33%;
+  width: 23.33%;
   padding: 30px;
   margin-left: 10px;
 	border-collapse: collapse;
-    background-color:darkblue; 
+  background-color:darkblue; 
    border-radius: 40px;
 	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
-    min-height: 600px;
+    min-height: 300px;
+    
 }
+
 
 .clearfix::after {
   content: "";
@@ -82,10 +85,10 @@ width:100%;
 .btns{
   border: none;
   background-color: blue;
-  padding: 14px 28px;
-  border-radius: 12px;
+  padding: 5px 5px;
+  border-radius: 6px;
   font-size: 13px;
-color:white;
+  color:white;
   cursor: pointer;
   
   display: inline-block;
@@ -93,28 +96,51 @@ color:white;
 .center{
 	text-align:center;
 	font-size: 24px;
+  color:white;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #6699ff;
 }
 
+li {
+  float: left;
+}
 
-.btn1:hover, .btnr:hover, .btn1:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: blue;
+}
+.header{
+  text-align:center;
+  font-size:30px;
+  color:blue;
 }
 </style>
 
+  <ul>
+  <li><%=link_to "back",viewprop_path, class:"active"%></li>
+  <li style="float:right"><%= link_to "logout", destroy_renter_session_path, method: :delete %></li>
+  </ul>
 
-<h1 text-align:center ,color:darkblue> Welcome <%=@renter.name%></h1>
 
+
+<h1 class="center"> Welcome <%=@renter.name%></h1>
 
 	<div class="login-form">
 	<div class="sign-in-htm">
-	<button class="btn1">
-	<%= link_to "back", viewprop_path%>
-	</button>
-<button class="btnr">
-<%= link_to "logout", destroy_renter_session_path, method: :delete %>
-</button>
-<br>
-<h3 class="center">Your wish lists</h3>
+
+<h3 class="center"><i>Your wish lists</i></h3>
 <% if @properties == nil %>
 <% puts "noproperties"%>
 <%end%>
@@ -129,8 +155,6 @@ color:white;
 <span class="border"><%= prop.address %></span><br>
 <span>Property rent</span>
 <span class="border"><%= prop.rent%> Dollars per day</span><br>
-<span >Property City</span>
-<span class="border"><%= prop.city%></span><br>
 <span >Number of bedrooms</span>
 <span class="border"><%= prop.bedrooms%></span><br>
 <button class="btns">
