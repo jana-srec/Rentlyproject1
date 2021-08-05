@@ -5,124 +5,7 @@
 <head>
 	
 <style >
-		
-		body{
-		margin:0;
-		color:#6a6f8c;
-		background:#c8c8c8;
-		font:600 16px/18px 'Open Sans',sans-serif;
-  		
-		}
-		.center{
-		text-align: center;
-		color:white;
-			}
 
-		*{
-		  box-sizing: border-box;
-		}
-
-	.box {
- 	 float: left;
-  	width: 27.33%;
-  	padding: 30px;
-  	margin-left: 10px;
-	border-collapse: collapse;
-    background-color:darkblue; 
-   	border-radius: 40px;
-	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
-    min-height: 500px;
-		}
-
-	.clearfix::after {
-	  content: "";
- 	 clear: both;
- 	 display: table;
-		}
-	.border{
-    
-		border-width: 1px;border-style: inset; 
-		border-radius: 10px;color: black;
-		width:100%;color:#ccc;
-		display:block;border-radius:25px;
-  		border:none;padding: 8px 10px;
-		background:rgba(255,255,255,.1);	
-			}
-	.align{
-	margin-right: 1000px;
-		}
-	.btn {
-  		border: none;font-size: 13px;
-  		cursor: pointer;
-		background-color: blue;
-  		color: white;padding: 5px 10px;
-  		border-radius: 12px;
-  		display: inline-block;
-  		}
-
-	.btn1 {
-  		border: none;border-radius: 22px;
-  		font-size: 14px;cursor: pointer;
-  		color: white;display: inline-block;
-  		background-color: blue;
-    		}
-
-	.btnr {
-		
- 	 	border: none;border-radius: 22px;
-  		font-size: 14px;display: inline-block;
- 	 	background-color: blue;
- 	 	margin-left:188px;color: white;
-  		cursor: pointer;
-  			}
-
-	.btn:hover, .btnr:hover, .btn1:hover {
-	  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-	}
-
-.btns{
-  border: none;
-  background-color: blue;
-  border-radius: 5px;
-  font-size: 13px;
-  padding: 4px 4px;
-  color:white;
-  cursor: pointer;
-  display: inline-block;
-}
-
-
- .btns:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #6699ff;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: blue;
-}
-.header{
-  text-align:center;
-  font-size:30px;
-  color:blue;
-}
 
 </style>
 <ul>
@@ -132,33 +15,37 @@ li a:hover {
 
 <br>
 <div class="center">Welcome <%=@agent.name%></div>
-<h1 clas="center"> Your Properties</h1>
+<h2 class="center"> Your Properties</h1>
 
 	<div class="login-form"> <div class="sign-in-htm">
 	
 	<% @agent.properties.each do |prop|%>
 		<div class="clearfix">
-		<div class="box" style="background-color: ">
+		<div class="box">
 		<button class="btn1"> <%=link_to "Edit" ,edit_property_path(prop)%> </button>
- 
+ 		<button class="btn"><%=link_to "Applications", viewapproach_path(prop)%></button>
+
 		<button class="btnr" ><%= link_to 'Delete', property_path(prop),
         	            method: :delete, data: { confirm: 'Are you sure?' } %> </button> 
 
-		<h2 class="center"><%= prop.name%><br></h2>
-		<span >Property Location :</span>
+		<h2 class="propname"><%= prop.name%><br></h2>
+		
+
+	<%(0...prop.images.count+1 - prop.images.count).each do |img| %>
+   <a href=""> <%= image_tag(prop.thumbnail(img),class:"br") %></a>
+   <%end%>
+   		<span >Property Location :</span>
 		<span class="border"><%= prop.address %></span><br>
-		<span>Property rent</span>
-		<span class="border"><%= prop.rent%> Dollars per day</span><br>
-		<span >Property City</span>
-		<span class="border"><%= prop.city%></span><br>
-		<span >Number of bedrooms</span>
+		<div>&ensp;Rent &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;Bedrooms</div>
+		<div class="rent"><%= prop.rent%></div>
 
-		<span class="border"><%= prop.bedrooms%></span><br>
-
+		<div class="bedrooms"><%= prop.bedrooms%></div>
+		<span >City</span>
+		<div class="border"><%=prop.city%></div>
+		
 		<span >About Property</span>
 
 		<span class="border"><%= prop.description%></span>
-		<button class="btn"><%=link_to "View Approached", viewapproach_path(prop)%></button>
 			</div>
 		<div>
 		<% end %>

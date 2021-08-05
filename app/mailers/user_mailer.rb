@@ -15,7 +15,14 @@ class UserMailer < ApplicationMailer
         @renter=renter
         @agent=agent
         @property=property
-        puts "#{@renter.name}"
+        
         mail(:to => @renter.email, :subject => "Property is availabe")
+      end
+  #for wishlist renters
+      def propertybooked(renter, agent, property)
+        @renter=renter
+        @agent=agent
+        @property=property
+        mail(:to => @renter.email, :subject => "Property is booked")
       end
 end

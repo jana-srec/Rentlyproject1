@@ -36,11 +36,8 @@ class AgentController < ApplicationController
         @approach=Approach.new()
         @property=Property.find(params[:id])
         @approachlist=Approach.where(properties_id:@property.id).all
-        if @property.flag == 1
-            #puts "#{@property.id}"
+        if @property.flag == 1  
         @rentedp=Rentedlist.where(property_id: @property.id).take
-       # puts "#{@rentedp.property_id}"
-        
         end
     end
     def addapproach

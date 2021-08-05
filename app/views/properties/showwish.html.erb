@@ -3,129 +3,20 @@
 <head>
 	
 	<style >
-		body{
-	margin:0;
-	color:#6a6f8c;
-	background:#c8c8c8;
-	font:600 16px/18px 'Open Sans',sans-serif;
-  background-color:;
-
-  
-}
-
-.right{
-   margin-left: 350px;
-   color:black;
-}
-.center{
-  text-align:center;
-}
-*{
-  box-sizing: border-box;
-}
-
-
-.box {
-  float: left;
-  width: 23.33%;
-  padding: 30px;
-  margin-left: 10px;
-	border-collapse: collapse;
-  background-color:darkblue; 
-   border-radius: 40px;
-	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
-    min-height: 300px;
-    
-}
-
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-.border{
-    
-border-width: 1px;
-border-style: inset; 
-border-radius: 10px;
-color: black;
-width:100%;
-	color:#ccc;
-	display:block;
-  	border-radius:25px;
-	  border:none;
-	padding:15px 20px;
-
-	background:rgba(255,255,255,.1);
-}
-
-.btn1 {
+	.btns{
+    margin-left:5%;
+    background-color:#333333;
+  }
+  .btn2{
   border: none;
-  background-color: orange;
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-size: 16px;
-  margin-left: ;
-  cursor: pointer;
-  color: black;
-  display: inline-block;
-}
-.btnr {
-  border: none;
-  background-color: orange;
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-size: 16px;
-  margin-left: 80%;
-  cursor: pointer;
-  color: black;
-  display: inline-block;
-}
-.btns{
-  border: none;
-  background-color: blue;
-  padding: 5px 5px;
-  border-radius: 6px;
+  margin-left:40%;
+  background-color:#333333;
+  border-radius: 5px;
   font-size: 13px;
+  padding: 4px 4px;
   color:white;
   cursor: pointer;
-  
-  display: inline-block;
-}
-.center{
-	text-align:center;
-	font-size: 24px;
-  color:white;
-}
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #6699ff;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: blue;
-}
-.header{
-  text-align:center;
-  font-size:30px;
-  color:blue;
-}
+  display: inline-block;}
 </style>
 
   <ul>
@@ -148,17 +39,31 @@ li a:hover {
 
 <div class="clearfix">
 <div class="box" style="background-color: ">
-<div class="btns"><%=link_to "Remove", remove_path(prop)%></div>
+
 <% prop = Property.find(prop.property_id)%>
-<h2 class="center"><%= prop.name%><br></h2>
-<span >Property Location :</span>
-<span class="border"><%= prop.address %></span><br>
-<span>Property rent</span>
-<span class="border"><%= prop.rent%> Dollars per day</span><br>
-<span >Number of bedrooms</span>
-<span class="border"><%= prop.bedrooms%></span><br>
-<button class="btns">
-<%= link_to "Expore this property", viewproperty_path(prop)%>
-</button>
-</div>
-<% end %>
+<div class="btns"><%=link_to "Remove", remove_path(prop)%></div>
+<%= link_to "View property", viewproperty_path(prop),class:"btn2"%>
+	
+	
+		<h2 class="propname"><%= prop.name%><br></h2>
+		
+
+	<%(0...prop.images.count+1 - prop.images.count).each do |img| %>
+   <a href=""> <%= image_tag(prop.thumbnail(img),class:"br") %></a>
+   <%end%>
+   		<span >Property Location :</span>
+		<span class="border"><%= prop.address %></span><br>
+		<div>&ensp;Rent &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;Bedrooms</div>
+		<div class="rent"><%= prop.rent%></div>
+
+		<div class="bedrooms"><%= prop.bedrooms%></div>
+		<span >City</span>
+		<div class="border"><%=prop.city%></div>
+		
+		<span >About Property</span>
+
+		<span class="border"><%= prop.description%></span>
+		
+			</div>
+		<div>
+		<% end %>

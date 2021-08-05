@@ -4,7 +4,7 @@ class Property < ApplicationRecord
     has_many_attached :images
     validate :image_type
 def thumbnail input
-    return self.images[input].variant(resize: '200X200!').processed
+    return self.images[input].variant(resize: '300X250>').processed
 end
 
     private 

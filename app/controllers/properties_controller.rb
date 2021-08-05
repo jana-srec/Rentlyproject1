@@ -40,14 +40,23 @@ class PropertiesController < ApplicationController
       if @adder.save
         # getting agent, property, renters object for sending email
         @agent=current_agent
-        @property=Property.find(@approach.properties_id)
         @renter= Renter.find(@approach.renters_id)
         #flag updation for rented or not
         @property.update(flag: 1)
         #sending email to renters that Agent has accepted his approach
         UserMailer.propertyrented(@renter,@agent,@property).deliver
-        #current flag to display the icon of accept or not
-        
+
+
+       # sending email to those who are approached as it was allocated for someone except the allocated renter
+       @approach.destroy
+         @check=Approach.where(properties_id: @property.id).all
+         @check.each do |obj|
+         @renter=Renter.find(obj.renters_id)
+         @agent=Agent.find(@property.agent_id)
+          UserMailer.propertybooked(@renter,@agent,@property).deliver_now
+         end
+
+
         redirect_to viewapproach_path(@property), notice: "An email has been sent to the respective Renter regarding your acceptance , he will ge back you in short"
       else
       redirect_to viewapproach_path(@property), notice: "Sorry you have already accepted this renter"
@@ -143,12 +152,9 @@ class PropertiesController < ApplicationController
       #to those who added to wishlit as this property
       def unrent
         @unrent=Rentedlist.find(params[:id])
-        
         #flag updation for rented or not
         @property=Property.find(@unrent.property_id)
         @property.update(flag: 0)
-        @removwish=Approach.where(renters_id: current_renter.id, properties_id:@property.id).take
-        @removwish.destroy
         @check=Wishlist.where(property_id: @property.id).all
         @check.each do |obj|
           @renter=Renter.find(obj.renter_id)

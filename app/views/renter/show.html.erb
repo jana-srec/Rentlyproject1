@@ -1,192 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
-	<style >
-		body{
-	margin:0;
-	color:#6a6f8c;
-	background:#c8c8c8;
-	font:600 16px/18px 'Open Sans',sans-serif;
-  background-color: ;
-	}
 
-  *,:after,:before{box-sizing:border-box}
-.clearfix:after,.clearfix:before{content:'';display:table}
-.clearfix:after{clear:both;display:block}
-a{color:inherit;text-decoration:none}
-
-		.login-wrap{
-		width:100%;
-		margin:auto;
-		max-width:525px;
-		min-height:600px;
-		position:relative;
-		background-color: darkblue; 
-  		border-radius: 40px;
-		box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
-		}
-
-
-		.login-html .tab,
-		.login-form .group .label,
-		.login-form .group .button{
-			text-transform:uppercase;
-		}
-
-
-		.login-form{
-		min-height:345px;
-		position:relative;
-		perspective:1000px;
-		transform-style:preserve-3d;
-		}
-		.login-form .group{
-		margin-bottom:15px;
-		}
-	.group.label,
-	.group.button,
-	.group.input,
-	.input{
-	width:100%;
-	color:#fff;
-	display:block;
-  	border-radius:25px;
-		}
-	.login-form .group .input,
-	.login-form .group .button{
-		border:none;
-		padding:15px 20px;
-		border-radius:25px;
-		background:rgba(255,255,255,.1);
-		}
-
-	.login-form .group .label{
-	color:#aaa;
-	font-size:10px;
-	}
-	.login-form .group .button{
-	background:#1161ee;
-	}
-
-
-
-  .foot-lnk{
-	text-align:center;
-}
-
-
-.center{
-  text-align:center;
-  color:white;
-}
-
-*{
-  box-sizing: border-box;
-}
-
-.box {
-  float: left;
-  width: 23.33%;
-  padding: 30px;
-  margin-left: 10px;
-	border-collapse: collapse;
-  background-color:darkblue; 
-   border-radius: 40px;
-	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
-    min-height: 300px;
-    
-}
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-
-.border{
-border-width: 1px;
-border-style: inset; 
-border-radius: 10px;
-color: black;
-width:100%;
-	color:#ccc;
-	display:block;
-  	border-radius:25px;
-	  border:none;
-	padding:15px 20px;
-
-	background:rgba(255,255,255,.1);
-}
-
-.btn1 {
-  border: none;
-  background-color: orange;
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-size: 16px;
-  margin-left: ;
-  cursor: pointer;
-  color: black;
-  display: inline-block;
-}
-.btnr {
-  border: none;
-  background-color: orange;
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-size: 16px;
-  margin-left: 70%;
-  cursor: pointer;
-  color: black;
-  display: inline-block;
-}
-.btns{
-  border: none;
-  background-color: blue;
-  border-radius: 5px;
-  font-size: 13px;
-  padding: 4px 4px;
-  color:white;
-  cursor: pointer;
-  
-  display: inline-block;
-}
-
-
- .btns:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #6699ff;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: blue;
-}
-.header{
-  text-align:center;
-  font-size:30px;
-  color:blue;
-}
-</style>
 
 <ul>
   <li><%= link_to "RentedList", rentedlistp_path ,class:"active"%></li>
@@ -194,25 +9,55 @@ li a:hover {
    <li style="float:right"><%= link_to "logout", destroy_renter_session_path, method: :delete %></li>
 </ul>
 
-<h1 class="header"> Welcome <%=@renter.name%></h1>
+<h1 class="center"> Welcome <%=@renter.name%></h1>
 
-	<div class="login-form">
-	<div class="sign-in-htm">
 
- <br>
-<% @propertylist.each do |prop|%>
-<div class="clearfix">
-<div class="box" style="background-color: ">
-<h2 class="center"><%= prop.name%><br></h2>
-<span >Property Location :</span>
-<span class="border"><%= prop.address %></span><br>
-<span>Property rent</span>
-<span class="border"><%= prop.rent%> Dollars per day</span><br>
-<span >Number of bedrooms</span>
-<span class="border"><%= prop.bedrooms%></span><br>
-<button class="btns">
-<%= link_to "View property", viewproperty_path(prop)%>
-</button>
+	<div class="login-form"> <div class="sign-in-htm">
+	
+	<% @propertylist.each do |prop|%>
+		<div class="clearfix">
+		<div class="box">
+		<button class="btn1">
+	<%= link_to "View property", viewproperty_path(prop)%>
+	</button>
+		<h2 class="propname"><%= prop.name%><br></h2>
+		
 
-</div>
-<% end %>
+	<%(0...prop.images.count+1 - prop.images.count).each do |img| %>
+   <a href=""> <%= image_tag(prop.thumbnail(img),class:"br") %></a>
+   <%end%>
+   		<span >Property Location :</span>
+		<span class="border"><%= prop.address %></span><br>
+		<div>&ensp;Rent &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;Bedrooms</div>
+		<div class="rent"><%= prop.rent%></div>
+
+		<div class="bedrooms"><%= prop.bedrooms%></div>
+		<span >City</span>
+		<div class="border"><%=prop.city%></div>
+		
+		<span >About Property</span>
+
+		<span class="border"><%= prop.description%></span>
+		
+			</div>
+		<div>
+		<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+
