@@ -1,38 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-<style>
-body {margin: 0;}
-.label,.input{
 	
-	color:#fff;
-	display:block;
-  	border-radius:25px;
-		}
-	.input{
-		border;
-		padding:15px 20px;
-    width:20%;
-		border-radius:10px;
-		background:#000033;
-		}
-
-.label{
-	color:brown;
-	font-size:12px;
+	<style >
+		body{
+	margin:0;
+	color:#6a6f8c;
+	background:#c8c8c8;
+	font:600 16px/18px 'Open Sans',sans-serif;
+  background-color:#f2f2f2 ;
 	}
-ul.topnav {
+
+.center{
+  text-align:center;
+}
+*{
+  box-sizing: border-box;
+}
+.review{
+  border-radius:13px;
+  shadow:black;
+}
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.border{
+    
+border-width: 1px;
+ 
+border-radius: 5pxpx;
+color: white;
+width:30%;
+	color:;
+	padding: 10px;
+  	border-radius:25px;
+	background:#999999
+}
+
+.box {
+  float: left;
+  width: 23.33%;
+  padding: 30px;
+  margin-left: 10px;
+	border-collapse: collapse;
+  background-color:darkblue; 
+   border-radius: 40px;
+	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+    min-height: 300px;
+    
+}
+
+.btn {
+  background-color: blue;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 10px;
+  cursor: pointer;
+  color: white;
+  display: inline-block;
+}
+
+.btn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+ .btns:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: #6699ff;
 }
 
-ul.topnav li {float: left;}
+li {
+  float: left;
+}
 
-ul.topnav li a {
+li a {
   display: block;
   color: white;
   text-align: center;
@@ -40,37 +90,29 @@ ul.topnav li a {
   text-decoration: none;
 }
 
-ul.topnav li a:hover:not(.active) {background-color: #111;}
-
-ul.topnav li a.active {background-color: #04AA6D;}
-
-ul.topnav li.right {float: right;}
-
-@media screen and (max-width: 600px) {
-  ul.topnav li.right, 
-  ul.topnav li {float: none;}
+li a:hover {
+  background-color: blue;
 }
-.center{
+.header{
   text-align:center;
+  font-size:30px;
+  color:blue;
 }
-.btn1{
-  color:white;
-  background-color: green;
-  border-radius:23px;
-  padding:5px;
-  font-size:10px;
-}
-
 </style>
-<ul class="topnav">
-  <li class="active"><%=link_to "back",viewprop_path%></li>
-   <li class="right"><%= link_to "logout", destroy_renter_session_path, method: :delete %></li>
-</ul>
+<body>
+ <ul>
+  <li><%=link_to "back",viewprop_path, class:"active"%></li>
+  <li style="float:right"><%= link_to "logout", destroy_renter_session_path, method: :delete %></li>
+  </ul>
+
 <div class="center">
 Welcome <%=@renter.name%>
+<br>
 
 </div>
+<br>
 <%# if the particular property is not rentd means then we can approach that property%>
+<%@rentercheckflag=0%>
 <% if @property.flag == 0%>
 <%if @approachflag == 1%>
 your Approaches has been updated
@@ -80,30 +122,39 @@ your Approaches has been updated
 <%else%>
 <%if @check.renter_id == current_renter.id %>
 The Agent Approved your request, check your mail and get connect with the agent:
+<%@rentercheckflag=1%>
 <%else%>
 Property has been already booked by someone
 Still you can add it to your wishlist
 <%= link_to "Add to wishlist", addwishlist_path(@property)%>
 <%end%>
 <%end%>
-
-<div>
-<div class="box" style="background-color: ">
-<h2 class="center"><%= @property.name%><br></h2>
-<span >Property Location :</span>
-<span class="border"><%= @property.address %></span><br>
-<span>Property rent</span>
-<span class="border"><%= @property.rent%> Dollars per day</span><br>
-<span >Property City</span>
-<span class="border"><%= @property.city%></span><br>
-<span >Number of bedrooms</span>
-<span class="border"><%= @property.bedrooms%></span><br>
-<span >About Property</span>
-<span class="border"><%= @property.description%>
-</span>
-</div>
 <br>
-Property Images
+<br>
+<table style="width:100%">
+  <tr>
+    <th>Property Name:</th>
+    <td><%= @property.name%></td>
+  </tr>
+  <tr>
+    <th>Property rent:</th>
+    <td><%= @property.rent%></td>
+  </tr>
+  <tr>
+    <th>Property City</th>
+    <td><%= @property.city%></td>
+  </tr>
+  <tr>
+    <th>Number of bedrooms</th>
+    <td><%= @property.bedrooms%></td>
+  </tr>
+  <tr>
+    <th>About Property:</th>
+    <td><%= @property.description%></td>
+  </tr>
+</table>
+<br>
+<div class="center">Property Images:
 <br><br>
 
 <%(0...@property.images.count).each do |img| %>
@@ -112,25 +163,26 @@ Property Images
  
 
 <%end%>
+</div>
 <br>
-<%#if ratingid == 1%>
+<%if @rentercheckflag==1%>
 provide some ratings and reviews 
 <%= form_for :@reviews, url:'/reviews'   do |f| %>
 <div class="group">
 <p>
     <%= f.label :rating,class:"label"%><br>
-    <%= f.number_field :rating, class:"input"%>
+    <%= f.number_field :rating,class:"review",placeholder: "    Out of five",max: 5%>
     </p>
     
     <%= f.label :reviews, class:"label"%><br>
-    <%= f.text_area :reviews, class:"input" %>
+    <%= f.text_area :reviews,class:"review" %>
   </p>
 <%= f.hidden_field :property_id, value: @property.id %>
-  <br>
+  
     <%= f.submit  "Add Reviews" ,class:"btn"%>
 </div>
-<%#end%>
 <%end%>
+<%end%><br>
 <% @reviewslist.each do|review|%>
 <div>
 <% @rentername=Renter.find(review.renter_id)%>
@@ -145,3 +197,4 @@ Ratings:
 <hr>
 </div>
 <%end%>
+</body>
